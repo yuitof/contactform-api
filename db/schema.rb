@@ -10,13 +10,5 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_08_135903) do
-  create_table "forms", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "message"
-    t.string "email"
-    t.string "firstname"
-    t.string "lastname"
-  end
+ActiveRecord::Schema[8.0].define(version: 2025_09_08_153228) do
 end

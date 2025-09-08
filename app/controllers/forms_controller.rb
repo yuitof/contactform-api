@@ -1,12 +1,7 @@
 class FormsController < ApplicationController
   def create
-    @form = Form.new(form_params)
-    if @form.save
-      FormMailer.with(form: @form).confirmation.deliver_later
-      render status: :created
-    else
-      render status: :unprocessable_entity
-    end
+    data = form_params().to_h
+    FormMailer.with(data: data).confirmation.deliver_later
   end
 
   private
