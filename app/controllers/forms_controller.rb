@@ -1,16 +1,21 @@
 class FormsController < ApplicationController
+  before_action :authenticate
+
   def create
-    @form = Form.new(form_params)
-    if @form.save
-      FormMailer.with(form: @form).confirmation.deliver_later
-      render status: :created
-    else
-      render status: :unprocessable_entity
-    end
+    data = form_params().to_h
+    FormMailer.with(data: data).confirmation.deliver_later
   end
 
   private
     def form_params
       params.expect(form: [ :message, :email, :firstname, :lastname ])
+    end
+
+    def authenticate
+      authenticate_or_request_with_http_token do |token, options|
+        # Compare the tokens in a time-constant manner, to mitigate
+        # timing attacks.
+        ActiveSupport::SecurityUtils.secure_compare(token, ENV["TOKEN"])
+      end
     end
 end
