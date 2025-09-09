@@ -1,6 +1,4 @@
 class FormsController < ApplicationController
-  TOKEN = "secret"
-
   before_action :authenticate
 
   def create
@@ -17,7 +15,7 @@ class FormsController < ApplicationController
       authenticate_or_request_with_http_token do |token, options|
         # Compare the tokens in a time-constant manner, to mitigate
         # timing attacks.
-        ActiveSupport::SecurityUtils.secure_compare(token, TOKEN)
+        ActiveSupport::SecurityUtils.secure_compare(token, ENV["TOKEN"])
       end
     end
 end
