@@ -8,7 +8,7 @@ class FormsController < ApplicationController
 
   private
     def form_params
-      params.expect(form: [ :message, :email, :firstname, :lastname ])
+      params.require(:form).permit(:message, :email, :firstname, :lastname)
     end
 
     def authenticate
