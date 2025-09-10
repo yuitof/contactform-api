@@ -19,7 +19,6 @@ default: &default
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
-
 development:
   <<: *default
   database: contactform_api_development
@@ -78,21 +77,9 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
+
 production:
-  primary: &primary_production
-    <<: *default
-    database: contactform_api_production
-    username: contactform_api
-    password: <%= ENV["CONTACTFORM_API_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *primary_production
-    database: contactform_api_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: contactform_api_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: contactform_api_production_cable
-    migrations_paths: db/cable_migrate
+  <<: *default
+  database: contactform_api_production
+  username: contactform_api
+  password: <%= ENV["MYSITE_DATABASE_PASSWORD"] %>
